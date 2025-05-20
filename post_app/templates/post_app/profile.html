@@ -1,0 +1,21 @@
+<!-- filepath: c:\Users\Admin\Desktop\posteero\post_proj\post_app\templates\post_app\profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - Posteero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+            <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Your Profile</h1>
+            <div class="flex flex-col items-center mb-4">
+                <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover border mb-2">
+                <p class="text-lg font-semibold">{{ user.username }}</p>
+                <p class="text-gray-600">{{ user.email }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

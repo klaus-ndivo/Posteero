@@ -1,0 +1,26 @@
+<!-- filepath: c:\Users\Admin\Desktop\posteero\post_proj\post_app\templates\post_app\frames.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose a Frame - Posteero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-6">Choose a Frame</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for frame in frames %}
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="{% static 'frames/'|add:frame.img %}" alt="{{ frame.name }}" class="w-40 h-40 object-cover rounded mb-2 border">
+                    <h2 class="text-lg font-semibold">{{ frame.name }}</h2>
+                    <a href="{% url 'editor' frame.name %}" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center w-full block">
+                        Use Template
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

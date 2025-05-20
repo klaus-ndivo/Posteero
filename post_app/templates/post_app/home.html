@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Posteero</title>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-gray-800">Posteero</a>
+            
+            <!-- Search Bar -->
+            <div class="flex items-center space-x-4">
+                <input 
+                    type="text" 
+                    placeholder="Search..." 
+                    class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <!-- Login Button -->
+                <a 
+                    href="{% url 'login' %}" 
+                    class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
+                >
+                    Login
+                </a>
+                <!-- Get Started Button -->
+                <a 
+                    href="{% url 'signup' %}" 
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                >
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-10">
+        <h1 class="text-4xl font-bold text-center text-gray-800">Welcome to Posteero</h1>
+        <p class="text-center text-gray-600 mt-4">Your platform for amazing content.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posteero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-purple-600">Posteero</a>
+            
+            <!-- Search Bar -->
+            <div class="flex items-center space-x-4">
+                <input 
+                    type="text" 
+                    placeholder="Search a template ..." 
+                    class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <!-- Create Button -->
+                <a 
+                    href="{% url 'frames' %}" 
+                    class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                >
+                    Create
+                </a>
+                <!-- User Profile Dropdown -->
+                <div class="relative group">
+                    <button 
+                        class="flex items-center space-x-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4.992 4.992 0 0112 15c1.657 0 3.156.672 4.121 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>Profile</span>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    {% if request.user.is_authenticated %}
+                    <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                            {{ request.user.username }}
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Stuff</a>
+                        <a href="{% url 'update_profile' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                            Edit Profile
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Help center</a>
+                        <form action="{% url 'logout' %}" method="POST" class="block">
+                            {% csrf_token %}
+                            <button type="submit" class="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- My Designs Section -->
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-6">My Designs</h1>
+        {% if designs %}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {% for design in designs %}
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <img src="{{ design.image.url }}" alt="{{ design.title }}" class="w-full h-48 object-cover rounded mb-2">
+                        <h2 class="text-lg font-semibold">{{ design.title }}</h2>
+                        <p class="text-gray-500 text-sm">Created: {{ design.created_at|date:"M d, Y" }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You have no saved designs yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

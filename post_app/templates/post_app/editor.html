@@ -1,0 +1,541 @@
+<!-- filepath: c:\Users\Admin\Desktop\posteero\post_proj\post_app\templates\post_app\editor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor - {{ frame_type|title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+</head>
+<body class="bg-gray-100 h-screen">
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-lg flex flex-col justify-between h-full py-4">
+            <!-- Top icons -->
+            <div class="space-y-2">
+                <button onclick="document.getElementById('imgInput').click()" class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Upload Icon -->
+                    <svg class="w-7 h-7 text-blue-500 group-hover:text-blue-700 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5 5 5M12 15V3" />
+                    </svg>
+                    <span class="text-xs text-gray-800">My Uploads</span>
+                </button>
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Templates Icon -->
+                    <svg class="w-7 h-7 text-blue-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    <span class="text-xs text-gray-800">Templates</span>
+                </button>
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Media Icon -->
+                    <svg class="w-7 h-7 text-blue-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="8.5" cy="8.5" r="2.5"/>
+                        <rect x="2" y="2" width="20" height="20" rx="5"/>
+                        <path d="M17 17l-5-5-4 4"/>
+                    </svg>
+                    <span class="text-xs text-gray-800">Media</span>
+                </button>
+                <button onclick="addText()" class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Text Icon -->
+                    <svg class="w-7 h-7 text-blue-500 group-hover:text-blue-700 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 6v2a2 2 0 002 2h12a2 2 0 002-2V6M4 18h16" />
+                    </svg>
+                    <span class="text-xs text-gray-800">Text</span>
+                </button>
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- AI Icon -->
+                    <svg class="w-7 h-7 text-purple-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                    </svg>
+                    <span class="text-xs text-gray-800">AI</span>
+                </button>
+                <button onclick="setBackground()" class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Background Icon -->
+                    <svg class="w-7 h-7 text-gray-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2" />
+                    </svg>
+                    <span class="text-xs text-gray-800">Background</span>
+                </button>
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Layout Icon -->
+                    <svg class="w-7 h-7 text-gray-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18M9 21V9"/>
+                    </svg>
+                    <span class="text-xs text-gray-800">Layout</span>
+                </button>
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Record Icon -->
+                    <svg class="w-7 h-7 text-gray-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="6"/>
+                    </svg>
+                    <span class="text-xs text-gray-800">Record</span>
+                </button>
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- Draw Icon -->
+                    <svg class="w-7 h-7 text-gray-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M16 4l4 4L8 20H4v-4L16 4z"/>
+                    </svg>
+                    <span class="text-xs text-gray-800">Draw</span>
+                </button>
+            </div>
+            <!-- Bottom icons -->
+            <div class="space-y-2">
+                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                    <!-- More Icon -->
+                    <svg class="w-7 h-7 text-gray-400 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="5" r="1.5"/>
+                        <circle cx="12" cy="12" r="1.5"/>
+                        <circle cx="12" cy="19" r="1.5"/>
+                    </svg>
+                    <span class="text-xs text-gray-500">More</span>
+                </button>
+            </div>
+            <input type="file" id="imgInput" accept="image/*" class="hidden" />
+        </div>
+        <!-- Main Editor Area -->
+        <div class="flex-1 flex flex-col items-center justify-center overflow-auto">
+            <div class="mb-4 w-full flex justify-between items-center px-8">
+                <h1 class="text-2xl font-bold">Editing: {{ frame_type|title }}</h1>
+                <span class="text-gray-500" id="canvasSizeLabel">Size: <span id="canvasSizeText">{{ size.width }} x {{ size.height }} px</span></span>
+            </div>
+                <div id="canvasContainer" class="bg-white shadow-lg rounded-lg flex items-center justify-center" style="min-width:320px; min-height:200px;">
+                    <canvas id="canvas"></canvas>
+                </div>
+            <!-- Canvas resize controls here -->
+            <div class="flex items-center space-x-2 mt-4">
+                <label class="text-sm">Width:</label>
+                <input id="canvasWidth" type="number" min="100" max="1200" value="{{ size.width }}" class="border rounded px-2 py-1 w-20">
+                <label class="text-sm">Height:</label>
+                <input id="canvasHeight" type="number" min="100" max="1600" value="{{ size.height }}" class="border rounded px-2 py-1 w-20">
+                <button onclick="resizeCanvas()" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Resize</button>
+            </div>
+        </div>
+        <!-- Right Sidebar -->
+        <div class="w-72 bg-white shadow-lg flex flex-col p-4 space-y-4">
+            <h2 class="text-lg font-bold mb-4">Styles</h2>
+            <div id="stylePanel" class="space-y-4">
+                <p class="text-gray-500">Select a text or shape to edit its style.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shape Picker Modal -->
+    <div id="shapeModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col items-center space-y-4">
+            <h3 class="text-lg font-bold mb-2">Choose a Shape</h3>
+            <div class="flex space-x-6">
+                <!-- Rectangle -->
+                <button onclick="addRect(); closeShapeModal();" class="flex flex-col items-center group focus:outline-none">
+                    <svg width="48" height="48" fill="none" class="mb-1 group-hover:scale-110 transition">
+                        <rect x="8" y="16" width="32" height="16" fill="#FACC15" stroke="#D97706" stroke-width="2"/>
+                    </svg>
+                    <span class="text-xs">Rectangle</span>
+                </button>
+                <!-- Circle -->
+                <button onclick="addCircle(); closeShapeModal();" class="flex flex-col items-center group focus:outline-none">
+                    <svg width="48" height="48" fill="none" class="mb-1 group-hover:scale-110 transition">
+                        <circle cx="24" cy="24" r="14" fill="#F472B6" stroke="#BE185D" stroke-width="2"/>
+                    </svg>
+                    <span class="text-xs">Circle</span>
+                </button>
+                <!-- Triangle -->
+                <button onclick="addTriangle(); closeShapeModal();" class="flex flex-col items-center group focus:outline-none">
+                    <svg width="48" height="48" fill="none" class="mb-1 group-hover:scale-110 transition">
+                        <polygon points="24,10 38,38 10,38" fill="#34D399" stroke="#047857" stroke-width="2"/>
+                    </svg>
+                    <span class="text-xs">Triangle</span>
+                </button>
+                <!-- Line -->
+                <button onclick="addLine(); closeShapeModal();" class="flex flex-col items-center group focus:outline-none">
+                    <svg width="48" height="48" fill="none" class="mb-1 group-hover:scale-110 transition">
+                        <line x1="10" y1="38" x2="38" y2="10" stroke="#60A5FA" stroke-width="4"/>
+                    </svg>
+                    <span class="text-xs">Line</span>
+                </button>
+            </div>
+            <button onclick="closeShapeModal()" class="mt-4 text-sm text-gray-500 hover:text-gray-700">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Determine canvas size based on frame_type
+        function getCanvasSize(frameType) {
+            switch (frameType.toLowerCase()) {
+                case 'poster': return { width: 600, height: 900 };
+                case 'flyer': return { width: 400, height: 600 };
+                case 'business card': return { width: 350, height: 200 };
+                case 'invitation': return { width: 500, height: 350 };
+                case 'social media post': return { width: 600, height: 600 };
+                default: return { width: 500, height: 700 };
+            }
+        }
+        const frameType = "{{ frame_type|escapejs }}";
+        const size = getCanvasSize(frameType);
+        const canvas = new fabric.Canvas('canvas', {
+            backgroundColor: '#fff',
+            width: size.width,
+            height: size.height
+        });
+
+        // Update canvas container size
+        const canvasContainer = document.getElementById('canvasContainer');
+        canvasContainer.style.width = `${size.width}px`;
+        canvasContainer.style.height = `${size.height}px`;
+
+        // Update canvas size display
+        document.getElementById('canvasSizeText').textContent = `${size.width} x ${size.height} px`;
+
+        // Add Text
+        function addText() {
+            const text = new fabric.IText('Double-click to edit', {
+                left: 100,
+                top: 100,
+                fontSize: 40,
+                fill: '#222'
+            });
+            canvas.add(text).setActiveObject(text);
+            // Automatically enter editing mode
+            canvas.setActiveObject(text);
+            text.enterEditing();
+            text.selectAll();
+        }
+
+        // Modal logic
+        function openShapeModal() {
+            document.getElementById('shapeModal').classList.remove('hidden');
+        }
+        function closeShapeModal() {
+            document.getElementById('shapeModal').classList.add('hidden');
+        }
+
+        // Add Rectangle
+        function addRect() {
+            const rect = new fabric.Rect({
+                left: 150,
+                top: 150,
+                fill: 'rgba(255, 206, 86, 0.7)',
+                width: 200,
+                height: 100
+            });
+            canvas.add(rect).setActiveObject(rect);
+        }
+
+        // Add Circle
+        function addCircle() {
+            const circle = new fabric.Circle({
+                left: 200,
+                top: 200,
+                radius: 50,
+                fill: 'rgba(54, 162, 235, 0.7)'
+            });
+            canvas.add(circle).setActiveObject(circle);
+        }
+
+        // Add Triangle
+        function addTriangle() {
+            const triangle = new fabric.Triangle({
+                left: 250,
+                top: 250,
+                width: 100,
+                height: 100,
+                fill: 'rgba(75, 192, 192, 0.7)'
+            });
+            canvas.add(triangle).setActiveObject(triangle);
+        }
+
+        // Add Line
+        function addLine() {
+            const line = new fabric.Line([50, 100, 200, 100], {
+                left: 300,
+                top: 300,
+                stroke: 'black',
+                strokeWidth: 5
+            });
+            canvas.add(line).setActiveObject(line);
+        }
+
+        // Add Image
+        document.getElementById('imgInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(f) {
+                fabric.Image.fromURL(f.target.result, function(img) {
+                    img.scaleToWidth(400);
+                    canvas.add(img).setActiveObject(img);
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Set Background Color
+        function setBackground() {
+            const color = prompt("Enter a background color (e.g., #f0f0f0 or red):", "#f0f0f0");
+            if (color) {
+                canvas.setBackgroundColor(color, canvas.renderAll.bind(canvas));
+            }
+        }
+
+        // Resize Canvas
+        function resizeCanvas() {
+            const w = parseInt(document.getElementById('canvasWidth').value);
+            const h = parseInt(document.getElementById('canvasHeight').value);
+            canvas.setWidth(w);
+            canvas.setHeight(h);
+            canvas.requestRenderAll();
+        }
+
+        // Update canvas size label
+        function updateCanvasSizeLabel() {
+            document.getElementById('canvasSizeText').textContent = `${canvas.getWidth()} x ${canvas.getHeight()} px`;
+        }
+        canvas.on('resize', updateCanvasSizeLabel);
+        document.getElementById('canvasWidth').addEventListener('input', updateCanvasSizeLabel);
+        document.getElementById('canvasHeight').addEventListener('input', updateCanvasSizeLabel);
+
+        // Download Canvas as Image
+        function downloadCanvas() {
+            const link = document.createElement('a');
+            link.download = 'design.png';
+            link.href = canvas.toDataURL({format: 'png'});
+            link.click();
+        }
+
+        // Save Canvas (for demo, just alert JSON)
+        function saveCanvas() {
+            alert("Canvas JSON:\n" + JSON.stringify(canvas.toJSON()));
+        }
+
+        // Helper: Update the style panel based on selection
+        canvas.on('selection:created', updateStylePanel);
+        canvas.on('selection:updated', updateStylePanel);
+        canvas.on('selection:cleared', updateStylePanel);
+
+        function updateStylePanel() {
+            const panel = document.getElementById('stylePanel');
+            const obj = canvas.getActiveObject();
+            if (!obj) {
+                panel.innerHTML = `<p class="text-gray-500">Select a text or shape to edit its style.</p>`;
+                return;
+            }
+
+            // TEXT CONTROLS
+            if (obj.type === 'i-text' || obj.type === 'text') {
+                panel.innerHTML = `
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Font Family</label>
+                        <select id="fontFamily" class="border rounded px-2 py-1 w-full">
+                            <option value="Arial">Arial</option>
+                            <option value="Raleway">Raleway</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Font Size</label>
+                        <input type="number" id="fontSize" class="border rounded px-2 py-1 w-full" value="${obj.fontSize || 40}">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Color</label>
+                        <input type="color" id="fontColor" value="${obj.fill || '#000000'}" class="w-10 h-8 p-0 border-0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Opacity</label>
+                        <input type="range" id="objOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
+                    </div>
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="setTextAlign('left')" class="px-2 py-1 border rounded">L</button>
+                        <button onclick="setTextAlign('center')" class="px-2 py-1 border rounded">C</button>
+                        <button onclick="setTextAlign('right')" class="px-2 py-1 border rounded">R</button>
+                    </div>
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="bringForward()" class="px-2 py-1 border rounded">Bring Forward</button>
+                        <button onclick="sendBackward()" class="px-2 py-1 border rounded">Send Backward</button>
+                    </div>
+                `;
+                document.getElementById('fontFamily').value = obj.fontFamily || 'Arial';
+                document.getElementById('fontFamily').onchange = function() {
+                    obj.set('fontFamily', this.value);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('fontSize').oninput = function() {
+                    obj.set('fontSize', parseInt(this.value));
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('fontColor').oninput = function() {
+                    obj.set('fill', this.value);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('objOpacity').oninput = function() {
+                    obj.set('opacity', parseFloat(this.value));
+                    canvas.requestRenderAll();
+                };
+                return;
+            }
+
+            // SHAPE CONTROLS
+            if (obj.type === 'rect' || obj.type === 'circle' || obj.type === 'triangle' || obj.type === 'line') {
+                let extra = '';
+                if (obj.type === 'rect') {
+                    extra = `
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Corner Radius</label>
+                            <input type="range" id="rectRadius" min="0" max="100" value="${obj.rx || 0}" class="w-full">
+                        </div>
+                    `;
+                }
+                if (obj.type === 'circle') {
+                    extra = `
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Radius</label>
+                            <input type="range" id="circleRadius" min="10" max="400" value="${obj.radius || 50}" class="w-full">
+                        </div>
+                    `;
+                }
+                if (obj.type === 'triangle') {
+                    extra = `
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Angle</label>
+                            <input type="range" id="triangleAngle" min="0" max="360" value="${obj.angle || 0}" class="w-full">
+                        </div>
+                    `;
+                }
+                if (obj.type === 'line') {
+                    extra = `
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Stroke Width</label>
+                            <input type="range" id="lineWidth" min="1" max="20" value="${obj.strokeWidth || 5}" class="w-full">
+                        </div>
+                    `;
+                }
+                panel.innerHTML = `
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Fill Color</label>
+                        <input type="color" id="shapeFill" value="${obj.fill || '#000000'}" class="w-10 h-8 p-0 border-0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Stroke Color</label>
+                        <input type="color" id="shapeStroke" value="${obj.stroke || '#000000'}" class="w-10 h-8 p-0 border-0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Opacity</label>
+                        <input type="range" id="objOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
+                    </div>
+                    ${extra}
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="bringForward()" class="px-2 py-1 border rounded">Bring Forward</button>
+                        <button onclick="sendBackward()" class="px-2 py-1 border rounded">Send Backward</button>
+                    </div>
+                `;
+                document.getElementById('shapeFill').oninput = function() {
+                    obj.set('fill', this.value);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('shapeStroke').oninput = function() {
+                    obj.set('stroke', this.value);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('objOpacity').oninput = function() {
+                    obj.set('opacity', parseFloat(this.value));
+                    canvas.requestRenderAll();
+                };
+                if (obj.type === 'rect') {
+                    document.getElementById('rectRadius').oninput = function() {
+                        obj.set('rx', parseInt(this.value));
+                        obj.set('ry', parseInt(this.value));
+                        canvas.requestRenderAll();
+                    };
+                }
+                if (obj.type === 'circle') {
+                    document.getElementById('circleRadius').oninput = function() {
+                        obj.set('radius', parseInt(this.value));
+                        canvas.requestRenderAll();
+                    };
+                }
+                if (obj.type === 'triangle') {
+                    document.getElementById('triangleAngle').oninput = function() {
+                        obj.set('angle', parseInt(this.value));
+                        canvas.requestRenderAll();
+                    };
+                }
+                if (obj.type === 'line') {
+                    document.getElementById('lineWidth').oninput = function() {
+                        obj.set('strokeWidth', parseInt(this.value));
+                        canvas.requestRenderAll();
+                    };
+                }
+                return;
+            }
+
+            // IMAGE CONTROLS
+            if (obj.type === 'image') {
+                panel.innerHTML = `
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Opacity</label>
+                        <input type="range" id="objOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
+                    </div>
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="bringForward()" class="px-2 py-1 border rounded">Bring Forward</button>
+                        <button onclick="sendBackward()" class="px-2 py-1 border rounded">Send Backward</button>
+                    </div>
+                `;
+                document.getElementById('objOpacity').oninput = function() {
+                    obj.set('opacity', parseFloat(this.value));
+                    canvas.requestRenderAll();
+                };
+                return;
+            }
+        }
+
+        // Text alignment functions
+        function setTextAlign(align) {
+            const obj = canvas.getActiveObject();
+            if (obj && (obj.type === 'i-text' || obj.type === 'text')) {
+                obj.set('textAlign', align);
+                canvas.requestRenderAll();
+            }
+        }
+
+        // Bring Forward
+        function bringForward() {
+            const obj = canvas.getActiveObject();
+            if (obj) {
+                canvas.bringForward(obj);
+                canvas.requestRenderAll();
+            }
+        }
+
+        // Send Backward
+        function sendBackward() {
+            const obj = canvas.getActiveObject();
+            if (obj) {
+                canvas.sendBackwards(obj);
+                canvas.requestRenderAll();
+            }
+        }
+
+        // Enable Delete key to remove selected object
+        document.addEventListener('keydown', function(e) {
+            // Only remove object if Delete is pressed and an object is selected, and not editing text
+            if (
+                e.key === "Delete" &&
+                canvas.getActiveObject() &&
+                !(canvas.getActiveObject().isEditing && canvas.getActiveObject().isEditing === true)
+            ) {
+                e.preventDefault();
+                canvas.remove(canvas.getActiveObject());
+                canvas.discardActiveObject();
+                canvas.requestRenderAll();
+                updateStylePanel();
+            }
+        });
+    </script>
+</body>
+</html>

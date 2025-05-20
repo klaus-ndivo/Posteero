@@ -1,0 +1,76 @@
+<!-- filepath: c:\Users\Admin\Desktop\posteero\post_proj\post_app\templates\post_app\update_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Posteero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+            <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Edit Profile</h1>
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        <div class="{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data" class="space-y-4" id="profile-form">
+                {% csrf_token %}
+                <div class="flex flex-col items-center mb-4">
+                    <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover border mb-2">
+                    {{ p_form.image }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Username</label>
+                    {{ u_form.username }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    {{ u_form.email }}
+                </div>
+                <div class="mt-8 space-y-2">
+                    <!-- Upload picture button triggers file input -->
+                    <button type="button" onclick="document.getElementById('id_image_input').click();" class="w-full flex items-center justify-center border py-2 rounded-lg text-gray-700">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v6m0 0l-3-3m3 3l3-3"></path></svg>
+                        Upload picture
+                    </button>
+                    <!-- Privacy settings button does nothing for now -->
+                    <button type="button" class="w-full flex items-center justify-center border py-2 rounded-lg text-gray-700">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 11c0-1.104.896-2 2-2s2 .896 2 2-.896 2-2 2-2-.896-2-2zm0 0V7m0 4v4"></path></svg>
+                        Privacy settings
+                    </button>
+                    <!-- View profile button links to profile.html -->
+                    <a href="{% url 'profile' %}" class="w-full flex items-center justify-center border py-2 rounded-lg text-gray-700">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5.121 17.804A4.992 4.992 0 0112 15c1.657 0 3.156.672 4.121 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        View profile
+                    </a>
+                </div>
+                <!-- Move update button to the bottom -->
+                <button type="submit" class="mt-8 w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+                    Update Profile
+                </button>
+            </form>
+            <div class="mt-8">
+                <button class="w-full border py-2 rounded-lg text-gray-700">
+                    Try Posteero premium
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Auto-submit form when a new image is selected
+        document.addEventListener('DOMContentLoaded', function() {
+            var imageInput = document.getElementById('id_image_input');
+            if (imageInput) {
+                imageInput.addEventListener('change', function() {
+                    document.getElementById('profile-form').submit();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
