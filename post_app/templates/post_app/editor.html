@@ -8,12 +8,142 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
 </head>
 <body class="bg-gray-100 h-screen">
+    <nav class="w-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center px-6 py-2 shadow z-50" style="min-height:54px;">
+        <!-- Logo and Back -->
+        <div class="flex items-center space-x-4 flex-shrink-0">
+            <button class="text-white hover:bg-blue-400 rounded-full p-1 mr-2">
+                <svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <span class="font-bold text-white text-lg flex items-center">
+                <svg class="mr-2" width="28" height="28" fill="none" viewBox="0 0 32 32">
+                    <polygon points="4,16 16,4 28,16 16,28" fill="white" opacity="0.8"/>
+                    <polygon points="16,8 24,16 16,24 8,16" fill="#38bdf8"/>
+                </svg>
+                posteero
+            </span>
+            <div class="relative group ml-6">
+                <button id="fileMenuBtn" class="text-white font-medium cursor-pointer hover:underline flex items-center focus:outline-none">
+                    File
+                    <svg class="ml-1" width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <div id="fileMenuDropdown" class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-focus:block group-hover:block">
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <path d="M12 8v8M8 12h8"/>
+                        </svg>
+                        New
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <path d="M8 8h8v8H8z"/>
+                        </svg>
+                        Duplicate
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <path d="M8 12h8"/>
+                        </svg>
+                        Open
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <path d="M8 8h8M8 16h8"/>
+                        </svg>
+                        Language &amp; Settings
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4"/>
+                            <circle cx="12" cy="8" r="1"/>
+                        </svg>
+                        Need help?
+                    </a>
+                    <div class="px-4 py-2">
+                        <button class="w-full border rounded py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 flex items-center justify-center">
+                            Submit as template
+                            <svg class="ml-2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Undo/Redo -->
+        <div class="flex items-center ml-8 space-x-2">
+            <button class="text-white hover:bg-blue-400 rounded-full p-1" title="Undo">
+                <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 19c-4 0-7-3-7-7s3-7 7-7c2.5 0 4.7 1.2 6 3"/>
+                    <polyline points="7 7 12 7 12 12"/>
+                </svg>
+            </button>
+            <button class="text-white hover:bg-blue-400 rounded-full p-1" title="Redo" disabled>
+                <svg width="22" height="22" fill="none" stroke="#b3e0fc" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 5c4 0 7 3 7 7s-3 7-7 7c-2.5 0-4.7-1.2-6-3"/>
+                    <polyline points="17 17 12 17 12 12"/>
+                </svg>
+            </button>
+        </div>
+        <!-- Spacer -->
+        <div class="flex-1"></div>
+        <!-- Status, Help, Save, Resize, Collaborate, Download, Publish -->
+        <div class="flex items-center space-x-4">
+            <span class="flex items-center text-white text-sm">
+                <svg class="mr-1" width="18" height="18" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 19c-4 0-7-3-7-7s3-7 7-7 7 3 7 7-3 7-7 7z"/>
+                    <path d="M12 7v5l3 3"/>
+                </svg>
+                All changes saved
+            </span>
+            <button class="text-white hover:bg-blue-400 rounded-full p-1" title="Help">
+                <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 3-3 3"/>
+                    <circle cx="12" cy="17" r="1"/>
+                </svg>
+            </button>
+            <button onclick="savePoster()" class="bg-white hover:bg-green-500 hover:text-white text-green-700 font-semibold px-5 py-1.5 rounded transition">Save</button>
+            <button class="bg-white bg-opacity-20 border border-white border-opacity-30 text-white px-4 py-1.5 rounded hover:bg-opacity-30 transition">Resize</button>
+            <button class="bg-white bg-opacity-20 border border-white border-opacity-30 text-white px-4 py-1.5 rounded hover:bg-opacity-30 transition flex items-center">
+                <svg class="mr-1" width="18" height="18" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                Collaborate
+            </button>
+            <button onclick="downloadCanvas()" class="bg-white bg-opacity-20 border border-white border-opacity-30 text-white px-4 py-1.5 rounded hover:bg-opacity-30 transition flex items-center">
+                <svg class="mr-1" width="18" height="18" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download
+            </button>
+            <button class="bg-white text-blue-600 font-semibold px-5 py-1.5 rounded hover:bg-gray-100 transition flex items-center">
+                Publish
+                <svg class="ml-1" width="18" height="18" fill="none" stroke="#2563eb" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M5 12h14"/>
+                    <path d="M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
     <div class="flex h-screen bg-gray-100">
         <!-- Sidebar -->
-        <div class="w-64 bg-white shadow-lg flex flex-col justify-between h-full py-4">
-            <!-- Top icons -->
-            <div class="space-y-2">
-                <button onclick="document.getElementById('imgInput').click()" class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+        <div class="w-64 bg-white shadow-lg flex flex-col h-full justify-center">
+            <div class="flex flex-col items-center space-y-2 mt-24">
+                <button onclick="openMediaPanel()" class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
                     <!-- Upload Icon -->
                     <svg class="w-7 h-7 text-blue-500 group-hover:text-blue-700 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5 5 5M12 15V3" />
@@ -30,7 +160,7 @@
                     </svg>
                     <span class="text-xs text-gray-800">Templates</span>
                 </button>
-                <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
+                <button onclick="openMediaPanel()" class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
                     <!-- Media Icon -->
                     <svg class="w-7 h-7 text-blue-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="8.5" cy="8.5" r="2.5"/>
@@ -83,9 +213,6 @@
                     </svg>
                     <span class="text-xs text-gray-800">Draw</span>
                 </button>
-            </div>
-            <!-- Bottom icons -->
-            <div class="space-y-2">
                 <button class="flex flex-col items-center w-full py-3 rounded hover:bg-blue-50 group">
                     <!-- More Icon -->
                     <svg class="w-7 h-7 text-gray-400 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -104,9 +231,15 @@
                 <h1 class="text-2xl font-bold">Editing: {{ frame_type|title }}</h1>
                 <span class="text-gray-500" id="canvasSizeLabel">Size: <span id="canvasSizeText">{{ size.width }} x {{ size.height }} px</span></span>
             </div>
-                <div id="canvasContainer" class="bg-white shadow-lg rounded-lg flex items-center justify-center" style="min-width:320px; min-height:200px;">
-                    <canvas id="canvas"></canvas>
-                </div>
+            <!-- Zoom Controls -->
+            <div class="flex items-center space-x-2 mb-2">
+                <button onclick="zoomOut()" class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 text-xl">-</button>
+                <span id="zoomLevel" class="text-sm text-gray-700">100%</span>
+                <button onclick="zoomIn()" class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 text-xl">+</button>
+            </div>
+            <div id="canvasContainer" class="bg-white shadow-lg rounded-lg flex items-center justify-center" style="min-width:320px; min-height:200px;">
+                <canvas id="canvas"></canvas>
+            </div>
             <!-- Canvas resize controls here -->
             <div class="flex items-center space-x-2 mt-4">
                 <label class="text-sm">Width:</label>
@@ -163,6 +296,28 @@
         </div>
     </div>
 
+    <!-- Media Panel Modal -->
+    <div id="mediaPanel" class="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-end transition-all duration-300 ease-in-out pointer-events-none opacity-0">
+        <div class="w-full h-[95vh] bg-white rounded-t-2xl shadow-lg p-6 overflow-y-auto transition-all duration-300 ease-in-out translate-y-full" id="mediaPanelContent">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">My Uploads</h2>
+                <button onclick="closeMediaPanel()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <!-- Upload Button -->
+            <div class="mb-4 flex justify-start">
+                <button onclick="document.getElementById('imgInput').click()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5 5 5M12 15V3" />
+                    </svg>
+                    Upload from Computer
+                </button>
+            </div>
+            <div id="mediaGrid" class="grid grid-cols-4 gap-4">
+                <!-- Uploaded items will be rendered here -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // Determine canvas size based on frame_type
         function getCanvasSize(frameType) {
@@ -191,87 +346,86 @@
         // Update canvas size display
         document.getElementById('canvasSizeText').textContent = `${size.width} x ${size.height} px`;
 
-        // Add Text
-        function addText() {
-            const text = new fabric.IText('Double-click to edit', {
-                left: 100,
-                top: 100,
-                fontSize: 40,
-                fill: '#222'
-            });
-            canvas.add(text).setActiveObject(text);
-            // Automatically enter editing mode
-            canvas.setActiveObject(text);
-            text.enterEditing();
-            text.selectAll();
-        }
+        // Store uploaded images in localStorage for persistence
+        let userUploads = JSON.parse(localStorage.getItem('userUploads') || '[]');
 
-        // Modal logic
-        function openShapeModal() {
-            document.getElementById('shapeModal').classList.remove('hidden');
-        }
-        function closeShapeModal() {
-            document.getElementById('shapeModal').classList.add('hidden');
-        }
-
-        // Add Rectangle
-        function addRect() {
-            const rect = new fabric.Rect({
-                left: 150,
-                top: 150,
-                fill: 'rgba(255, 206, 86, 0.7)',
-                width: 200,
-                height: 100
-            });
-            canvas.add(rect).setActiveObject(rect);
-        }
-
-        // Add Circle
-        function addCircle() {
-            const circle = new fabric.Circle({
-                left: 200,
-                top: 200,
-                radius: 50,
-                fill: 'rgba(54, 162, 235, 0.7)'
-            });
-            canvas.add(circle).setActiveObject(circle);
-        }
-
-        // Add Triangle
-        function addTriangle() {
-            const triangle = new fabric.Triangle({
-                left: 250,
-                top: 250,
-                width: 100,
-                height: 100,
-                fill: 'rgba(75, 192, 192, 0.7)'
-            });
-            canvas.add(triangle).setActiveObject(triangle);
-        }
-
-        // Add Line
-        function addLine() {
-            const line = new fabric.Line([50, 100, 200, 100], {
-                left: 300,
-                top: 300,
-                stroke: 'black',
-                strokeWidth: 5
-            });
-            canvas.add(line).setActiveObject(line);
-        }
-
-        // Add Image
+        // When user uploads an image, add to userUploads and refresh grid
         document.getElementById('imgInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(f) {
+                userUploads.push(f.target.result);
+                // Save to localStorage for persistence
+                localStorage.setItem('userUploads', JSON.stringify(userUploads));
+                renderMediaGrid();
+                // Add to canvas as before
                 fabric.Image.fromURL(f.target.result, function(img) {
                     img.scaleToWidth(400);
                     canvas.add(img).setActiveObject(img);
                 });
             };
             reader.readAsDataURL(file);
+        });
+
+        // Open/close panel (now for My Uploads)
+        function openMediaPanel() {
+            const panel = document.getElementById('mediaPanel');
+            const content = document.getElementById('mediaPanelContent');
+            panel.classList.remove('pointer-events-none', 'opacity-0');
+            panel.classList.add('pointer-events-auto', 'opacity-100');
+            // Slide up
+            setTimeout(() => {
+                content.classList.remove('translate-y-full');
+                content.classList.add('translate-y-0');
+            }, 10);
+            renderMediaGrid();
+        }
+        function closeMediaPanel() {
+            const panel = document.getElementById('mediaPanel');
+            const content = document.getElementById('mediaPanelContent');
+            // Slide down
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full');
+            setTimeout(() => {
+                panel.classList.add('pointer-events-none', 'opacity-0');
+                panel.classList.remove('pointer-events-auto', 'opacity-100');
+            }, 300);
+        }
+
+        // Render uploaded images in grid
+        function renderMediaGrid() {
+            const grid = document.getElementById('mediaGrid');
+            if (!userUploads.length) {
+                grid.innerHTML = `<div class="col-span-4 text-center text-gray-400 py-8">No uploads yet.</div>`;
+                return;
+            }
+            grid.innerHTML = userUploads.map(src => `
+                <div class="border rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition aspect-w-1 aspect-h-1 bg-gray-100 flex items-center justify-center" onclick="addMediaToCanvas('${src}')">
+                    <img src="${src}" class="object-contain w-full h-32 bg-white" />
+                </div>
+            `).join('');
+        }
+
+        // Add image from grid to canvas
+        function addMediaToCanvas(src) {
+            fabric.Image.fromURL(src, function(img) {
+                img.scaleToWidth(400);
+                canvas.add(img).setActiveObject(img);
+            });
+            closeMediaPanel();
+        }
+
+        // On page load, render uploads from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMediaGrid();
+            // Restore poster if available
+            const saved = localStorage.getItem('savedPoster');
+            if (saved) {
+                canvas.loadFromJSON(saved, () => {
+                    canvas.renderAll();
+                });
+            }
         });
 
         // Set Background Color
@@ -299,6 +453,45 @@
         document.getElementById('canvasWidth').addEventListener('input', updateCanvasSizeLabel);
         document.getElementById('canvasHeight').addEventListener('input', updateCanvasSizeLabel);
 
+        // Zoom Controls
+        let zoom = 1;
+
+        function updateZoom() {
+            const container = document.getElementById('canvasContainer');
+            container.style.transform = `scale(${zoom})`;
+            container.style.transformOrigin = 'top center';
+            document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
+        }
+
+        function zoomIn() {
+            if (zoom < 3) {
+                zoom += 0.1;
+                updateZoom();
+            }
+        }
+
+        function zoomOut() {
+            if (zoom > 0.2) {
+                zoom -= 0.1;
+                updateZoom();
+            }
+        }
+
+        // Optional: Zoom with Ctrl + Mouse Wheel
+        document.getElementById('canvasContainer').addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    zoomIn();
+                } else {
+                    zoomOut();
+                }
+            }
+        }, { passive: false });
+
+        // Initialize zoom on load
+        updateZoom();
+
         // Download Canvas as Image
         function downloadCanvas() {
             const link = document.createElement('a');
@@ -307,9 +500,11 @@
             link.click();
         }
 
-        // Save Canvas (for demo, just alert JSON)
-        function saveCanvas() {
-            alert("Canvas JSON:\n" + JSON.stringify(canvas.toJSON()));
+        // Save Canvas
+        function savePoster() {
+            // Save the current canvas as JSON in localStorage
+            localStorage.setItem('savedPoster', JSON.stringify(canvas.toJSON()));
+            alert('Poster saved! You can reload the page and your design will be restored.');
         }
 
         // Helper: Update the style panel based on selection
@@ -329,8 +524,8 @@
             if (obj.type === 'i-text' || obj.type === 'text') {
                 panel.innerHTML = `
                     <div>
-                        <label class="block text-sm font-medium mb-1">Font Family</label>
-                        <select id="fontFamily" class="border rounded px-2 py-1 w-full">
+                        <label class="block text-sm font-medium mb-1">Font</label>
+                        <select id="fontFamily" class="border rounded px-2 py-1 w-full mb-2">
                             <option value="Arial">Arial</option>
                             <option value="Raleway">Raleway</option>
                             <option value="Times New Roman">Times New Roman</option>
@@ -338,45 +533,245 @@
                             <option value="Georgia">Georgia</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Font Size</label>
-                        <input type="number" id="fontSize" class="border rounded px-2 py-1 w-full" value="${obj.fontSize || 40}">
+                    <div class="flex space-x-2 mb-2">
+                        <button id="boldBtn" class="px-2 py-1 border rounded font-bold">B</button>
+                        <button id="italicBtn" class="px-2 py-1 border rounded italic">I</button>
+                        <button id="underlineBtn" class="px-2 py-1 border rounded underline">U</button>
+                        <button id="strikeBtn" class="px-2 py-1 border rounded line-through">S</button>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Color</label>
-                        <input type="color" id="fontColor" value="${obj.fill || '#000000'}" class="w-10 h-8 p-0 border-0">
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Size</label>
+                        <button id="decreaseFont" class="px-2 border rounded">-</button>
+                        <input type="number" id="fontSize" class="border rounded px-2 py-1 w-16 mx-2" value="${obj.fontSize || 40}">
+                        <button id="increaseFont" class="px-2 border rounded">+</button>
                     </div>
-                    <div>
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Color</label>
+                        <input type="color" id="fontColor" value="${obj.fill || '#000000'}" class="w-8 h-8 p-0 border-0">
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Outline</label>
+                        <input type="checkbox" id="outlineToggle" ${obj.stroke ? 'checked' : ''} class="ml-2">
+                    </div>
+                    <div class="flex space-x-2 mb-2">
+                        <button onclick="setTextAlign('left')" class="px-2 py-1 border rounded"> <svg width="16" height="16"><rect width="16" height="3" y="2" fill="#333"/><rect width="10" height="3" y="7" fill="#333"/><rect width="16" height="3" y="12" fill="#333"/></svg> </button>
+                        <button onclick="setTextAlign('center')" class="px-2 py-1 border rounded"> <svg width="16" height="16"><rect width="16" height="3" y="2" fill="#333"/><rect width="8" height="3" x="4" y="7" fill="#333"/><rect width="16" height="3" y="12" fill="#333"/></svg> </button>
+                        <button onclick="setTextAlign('right')" class="px-2 py-1 border rounded"> <svg width="16" height="16"><rect width="16" height="3" y="2" fill="#333"/><rect width="10" height="3" x="6" y="7" fill="#333"/><rect width="16" height="3" y="12" fill="#333"/></svg> </button>
+                    </div>
+                    <div class="flex space-x-2 mb-2">
+                        <button id="verticalTop" class="px-2 py-1 border rounded">↑</button>
+                        <button id="verticalMiddle" class="px-2 py-1 border rounded">↕</button>
+                        <button id="verticalBottom" class="px-2 py-1 border rounded">↓</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Line Height</label>
+                        <button id="decreaseLineHeight" class="px-2 border rounded">-</button>
+                        <input type="number" id="lineHeight" class="border rounded px-2 py-1 w-16 mx-2" value="${obj.lineHeight || 1}">
+                        <button id="increaseLineHeight" class="px-2 border rounded">+</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Letter Spacing</label>
+                        <button id="decreaseSpacing" class="px-2 border rounded">-</button>
+                        <input type="number" id="charSpacing" class="border rounded px-2 py-1 w-16 mx-2" value="${obj.charSpacing || 0}">
+                        <button id="increaseSpacing" class="px-2 border rounded">+</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Background</label>
+                        <input type="checkbox" id="bgToggle" ${obj.backgroundColor ? 'checked' : ''} class="ml-2">
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <label class="text-sm mr-2">Shadow</label>
+                        <select id="shadowSelect" class="border rounded px-2 py-1">
+                            <option value="">None</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
                         <label class="block text-sm font-medium mb-1">Opacity</label>
-                        <input type="range" id="objOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
+                        <input type="range" id="textOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
                     </div>
-                    <div class="flex space-x-2 mt-2">
-                        <button onclick="setTextAlign('left')" class="px-2 py-1 border rounded">L</button>
-                        <button onclick="setTextAlign('center')" class="px-2 py-1 border rounded">C</button>
-                        <button onclick="setTextAlign('right')" class="px-2 py-1 border rounded">R</button>
-                    </div>
-                    <div class="flex space-x-2 mt-2">
-                        <button onclick="bringForward()" class="px-2 py-1 border rounded">Bring Forward</button>
-                        <button onclick="sendBackward()" class="px-2 py-1 border rounded">Send Backward</button>
+                    <div class="mb-2">
+                        <label class="block text-sm font-medium mb-1">Animation</label>
+                        <div class="flex space-x-4">
+                            <button id="animateEntrance" class="border-2 border-dashed rounded-lg px-6 py-3 flex flex-col items-center hover:border-blue-400">
+                                <!-- Entrance Icon SVG -->
+                                <svg width="32" height="32" fill="none" stroke="#555" stroke-width="2">
+                                    <circle cx="12" cy="16" r="4" opacity="0.3"/>
+                                    <circle cx="18" cy="16" r="4" opacity="0.6"/>
+                                    <circle cx="24" cy="16" r="4"/>
+                                    <path d="M28 16l4 0" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+                                    <defs>
+                                        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                            <path d="M0,0 L0,6 L6,3 z" fill="#555"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <span class="text-xs mt-1 text-gray-600">Entrance</span>
+                            </button>
+                            <button id="animateExit" class="border-2 border-dashed rounded-lg px-6 py-3 flex flex-col items-center hover:border-blue-400">
+                                <!-- Exit Icon SVG -->
+                                <svg width="32" height="32" fill="none" stroke="#555" stroke-width="2">
+                                    <circle cx="24" cy="16" r="4" opacity="0.3"/>
+                                    <circle cx="18" cy="16" r="4" opacity="0.6"/>
+                                    <circle cx="12" cy="16" r="4"/>
+                                    <path d="M8 16l-4 0" stroke="#555" stroke-width="2" marker-end="url(#arrow2)"/>
+                                    <defs>
+                                        <marker id="arrow2" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
+                                            <path d="M6,0 L6,6 L0,3 z" fill="#555"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <span class="text-xs mt-1 text-gray-600">Exit</span>
+                            </button>
+                        </div>
                     </div>
                 `;
+
+                // Font family
                 document.getElementById('fontFamily').value = obj.fontFamily || 'Arial';
                 document.getElementById('fontFamily').onchange = function() {
                     obj.set('fontFamily', this.value);
                     canvas.requestRenderAll();
                 };
+
+                // Font style buttons
+                document.getElementById('boldBtn').onclick = function() {
+                    obj.set('fontWeight', obj.fontWeight === 'bold' ? 'normal' : 'bold');
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('italicBtn').onclick = function() {
+                    obj.set('fontStyle', obj.fontStyle === 'italic' ? 'normal' : 'italic');
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('underlineBtn').onclick = function() {
+                    obj.set('underline', !obj.underline);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('strikeBtn').onclick = function() {
+                    obj.set('linethrough', !obj.linethrough);
+                    canvas.requestRenderAll();
+                };
+
+                // Font size
                 document.getElementById('fontSize').oninput = function() {
                     obj.set('fontSize', parseInt(this.value));
                     canvas.requestRenderAll();
                 };
+                document.getElementById('increaseFont').onclick = function() {
+                    obj.set('fontSize', (obj.fontSize || 40) + 1);
+                    document.getElementById('fontSize').value = obj.fontSize;
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('decreaseFont').onclick = function() {
+                    obj.set('fontSize', Math.max(1, (obj.fontSize || 40) - 1));
+                    document.getElementById('fontSize').value = obj.fontSize;
+                    canvas.requestRenderAll();
+                };
+
+                // Color
                 document.getElementById('fontColor').oninput = function() {
                     obj.set('fill', this.value);
                     canvas.requestRenderAll();
                 };
-                document.getElementById('objOpacity').oninput = function() {
+
+                // Outline
+                document.getElementById('outlineToggle').onchange = function() {
+                    if (this.checked) {
+                        obj.set('stroke', '#000');
+                        obj.set('strokeWidth', 2);
+                    } else {
+                        obj.set('stroke', null);
+                        obj.set('strokeWidth', 0);
+                    }
+                    canvas.requestRenderAll();
+                };
+
+                // Vertical alignment (for single-line, just moves top property)
+                document.getElementById('verticalTop').onclick = function() {
+                    obj.set('top', 0);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('verticalMiddle').onclick = function() {
+                    obj.set('top', (canvas.height - obj.height * obj.scaleY) / 2);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('verticalBottom').onclick = function() {
+                    obj.set('top', canvas.height - obj.height * obj.scaleY);
+                    canvas.requestRenderAll();
+                };
+
+                // Line height
+                document.getElementById('lineHeight').oninput = function() {
+                    obj.set('lineHeight', parseFloat(this.value));
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('increaseLineHeight').onclick = function() {
+                    obj.set('lineHeight', (obj.lineHeight || 1) + 0.1);
+                    document.getElementById('lineHeight').value = obj.lineHeight.toFixed(1);
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('decreaseLineHeight').onclick = function() {
+                    obj.set('lineHeight', Math.max(0.1, (obj.lineHeight || 1) - 0.1));
+                    document.getElementById('lineHeight').value = obj.lineHeight.toFixed(1);
+                    canvas.requestRenderAll();
+                };
+
+                // Letter spacing
+                document.getElementById('charSpacing').oninput = function() {
+                    obj.set('charSpacing', parseInt(this.value));
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('increaseSpacing').onclick = function() {
+                    obj.set('charSpacing', (obj.charSpacing || 0) + 10);
+                    document.getElementById('charSpacing').value = obj.charSpacing;
+                    canvas.requestRenderAll();
+                };
+                document.getElementById('decreaseSpacing').onclick = function() {
+                    obj.set('charSpacing', Math.max(0, (obj.charSpacing || 0) - 10));
+                    document.getElementById('charSpacing').value = obj.charSpacing;
+                    canvas.requestRenderAll();
+                };
+
+                // Background
+                document.getElementById('bgToggle').onchange = function() {
+                    if (this.checked) {
+                        obj.set('backgroundColor', '#ffff99');
+                    } else {
+                        obj.set('backgroundColor', '');
+                    }
+                    canvas.requestRenderAll();
+                };
+
+                // Shadow
+                document.getElementById('shadowSelect').onchange = function() {
+                    if (this.value === 'small') {
+                        obj.set('shadow', { color: 'rgba(0,0,0,0.3)', blur: 3, offsetX: 2, offsetY: 2 });
+                    } else if (this.value === 'medium') {
+                        obj.set('shadow', { color: 'rgba(0,0,0,0.4)', blur: 8, offsetX: 4, offsetY: 4 });
+                    } else if (this.value === 'large') {
+                        obj.set('shadow', { color: 'rgba(0,0,0,0.5)', blur: 16, offsetX: 8, offsetY: 8 });
+                    } else {
+                        obj.set('shadow', null);
+                    }
+                    canvas.requestRenderAll();
+                };
+
+                // Opacity
+                document.getElementById('textOpacity').oninput = function() {
                     obj.set('opacity', parseFloat(this.value));
                     canvas.requestRenderAll();
                 };
+
+                // Animation buttons (demo: just highlight or alert)
+                document.getElementById('animateEntrance').onclick = function() {
+                    alert('Entrance animation triggered (implement your animation logic here)');
+                };
+                document.getElementById('animateExit').onclick = function() {
+                    alert('Exit animation triggered (implement your animation logic here)');
+                };
+
                 return;
             }
 
@@ -477,19 +872,342 @@
             // IMAGE CONTROLS
             if (obj.type === 'image') {
                 panel.innerHTML = `
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Opacity</label>
-                        <input type="range" id="objOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button id="cropBtn" class="flex flex-col items-center border rounded-lg py-2 hover:bg-blue-50">
+                            <svg width="24" height="24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+                            <span class="text-xs">Crop</span>
+                        </button>
+                        <button id="replaceBtn" class="flex flex-col items-center border rounded-lg py-2 hover:bg-blue-50">
+                            <svg width="24" height="24" fill="none" stroke="#333" stroke-width="2"><path d="M4 4l16 16"/><path d="M4 20l16-16"/></svg>
+                            <span class="text-xs">Replace</span>
+                        </button>
+                        <button id="bgRemoveBtn" class="flex flex-col items-center border rounded-lg py-2 col-span-1 hover:bg-blue-50">
+                            <svg width="24" height="24" fill="none" stroke="#4F46E5" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="6" stroke="#4F46E5" stroke-width="2" fill="none"/></svg>
+                            <span class="text-xs text-blue-700">AI Background Remover</span>
+                        </button>
+                        <button id="maskBtn" class="flex flex-col items-center border rounded-lg py-2 col-span-1 hover:bg-blue-50">
+                            <svg width="24" height="24" fill="none" stroke="#333" stroke-width="2"><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M8 8v8"/></svg>
+                            <span class="text-xs">Mask</span>
+                        </button>
                     </div>
-                    <div class="flex space-x-2 mt-2">
-                        <button onclick="bringForward()" class="px-2 py-1 border rounded">Bring Forward</button>
-                        <button onclick="sendBackward()" class="px-2 py-1 border rounded">Send Backward</button>
+                    <div class="border-t my-2"></div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-2">Effects</label>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Edge Effects</span>
+                            <select id="edgeEffect" class="border rounded px-2 py-1 text-xs">
+                                <option value="">None</option>
+                                <option value="shadow">Shadow</option>
+                                <option value="glow">Glow</option>
+                            </select>
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Shadow</span>
+                            <select id="shadowEffect" class="border rounded px-2 py-1 text-xs">
+                                <option value="">None</option>
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                            </select>
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Glow</span>
+                            <select id="glowEffect" class="border rounded px-2 py-1 text-xs">
+                                <option value="">None</option>
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                            </select>
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Border</span>
+                            <select id="borderEffect" class="border rounded px-2 py-1 text-xs">
+                                <option value="">None</option>
+                                <option value="black">Black</option>
+                                <option value="white">White</option>
+                                <option value="blue">Blue</option>
+                            </select>
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Roundness</span>
+                            <input type="checkbox" id="imgRoundness" ${obj.rx ? 'checked' : ''}>
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Black & White</span>
+                            <input type="checkbox" id="imgBW">
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Sepia</span>
+                            <input type="checkbox" id="imgSepia">
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Invert</span>
+                            <input type="checkbox" id="imgInvert">
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Remove color</span>
+                            <input type="checkbox" id="imgRemoveColor">
+                        </div>
+                    </div>
+                    <div class="border-t my-2"></div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-2">Adjustments</label>
+                        ${['Brightness','Contrast','Vibrance','Saturation'].map(adjustment => `
+                            <div class="mb-2">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span>${adjustment}</span>
+                                    <div class="flex items-center space-x-1">
+                                        <button class="px-2 border rounded text-xs" onclick="adjustImage('${adjustment.toLowerCase()}', -10)">-</button>
+                                        <input type="number" id="img${adjustment}" class="border rounded px-1 w-12 text-xs" value="0">
+                                        <button class="px-2 border rounded text-xs" onclick="adjustImage('${adjustment.toLowerCase()}', 10)">+</button>
+                                    </div>
+                                </div>
+                                <input type="range" min="-100" max="100" value="0" id="img${adjustment}Range" class="w-full">
+                            </div>
+                        `).join('')}
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Tint</span>
+                            <input type="checkbox" id="imgTint">
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Multiply</span>
+                            <input type="checkbox" id="imgMultiply">
+                        </div>
+                        <div class="mb-2 flex items-center justify-between">
+                            <span>Gamma</span>
+                            <input type="checkbox" id="imgGamma">
+                        </div>
+                    </div>
+                    <div class="border-t my-2"></div>
+                    <div class="mb-2">
+                        <label class="block text-sm font-medium mb-1">Opacity</label>
+                        <input type="range" id="imgOpacity" min="0" max="1" step="0.01" value="${obj.opacity ?? 1}" class="w-full">
+                    </div>
+                    <div class="mb-2">
+                        <label class="block text-sm font-medium mb-1">Animation</label>
+                        <div class="flex space-x-4">
+                            <button id="animateEntrance" class="border-2 border-dashed rounded-lg px-6 py-3 flex flex-col items-center hover:border-blue-400">
+                                <!-- Entrance Icon SVG -->
+                                <svg width="32" height="32" fill="none" stroke="#555" stroke-width="2">
+                                    <circle cx="12" cy="16" r="4" opacity="0.3"/>
+                                    <circle cx="18" cy="16" r="4" opacity="0.6"/>
+                                    <circle cx="24" cy="16" r="4"/>
+                                    <path d="M28 16l4 0" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+                                    <defs>
+                                        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                            <path d="M0,0 L0,6 L6,3 z" fill="#555"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <span class="text-xs mt-1 text-gray-600">Entrance</span>
+                            </button>
+                            <button id="animateExit" class="border-2 border-dashed rounded-lg px-6 py-3 flex flex-col items-center hover:border-blue-400">
+                                <!-- Exit Icon SVG -->
+                                <svg width="32" height="32" fill="none" stroke="#555" stroke-width="2">
+                                    <circle cx="24" cy="16" r="4" opacity="0.3"/>
+                                    <circle cx="18" cy="16" r="4" opacity="0.6"/>
+                                    <circle cx="12" cy="16" r="4"/>
+                                    <path d="M8 16l-4 0" stroke="#555" stroke-width="2" marker-end="url(#arrow2)"/>
+                                    <defs>
+                                        <marker id="arrow2" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
+                                            <path d="M6,0 L6,6 L0,3 z" fill="#555"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <span class="text-xs mt-1 text-gray-600">Exit</span>
+                            </button>
+                        </div>
                     </div>
                 `;
-                document.getElementById('objOpacity').oninput = function() {
+
+                // --- Functionality wiring ---
+
+                // Crop (simple bounding box crop)
+                document.getElementById('cropBtn').onclick = function() {
+                    alert('Crop: Drag the corners of the image to crop. (Implement cropping logic here)');
+                };
+
+                // Replace
+                document.getElementById('replaceBtn').onclick = function() {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = function(e) {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = function(f) {
+                            obj.setSrc(f.target.result, () => canvas.requestRenderAll());
+                        };
+                        reader.readAsDataURL(file);
+                    };
+                    input.click();
+                };
+
+                // AI Background Remover (stub)
+                document.getElementById('bgRemoveBtn').onclick = function() {
+                    alert('AI Background Remover: This would call your backend or a service to remove the background.');
+                };
+
+                // Mask (stub)
+                document.getElementById('maskBtn').onclick = function() {
+                    alert('Mask: This would allow you to mask the image. (Implement masking logic here)');
+                };
+
+                // Edge Effects (stub)
+                document.getElementById('edgeEffect').onchange = function() {
+                    // Implement edge effect logic here
+                    alert('Edge effect: ' + this.value);
+                };
+
+                // Shadow
+                document.getElementById('shadowEffect').onchange = function() {
+                    if (this.value === 'small') {
+                        obj.set('shadow', { color: 'rgba(0,0,0,0.3)', blur: 3, offsetX: 2, offsetY: 2 });
+                    } else if (this.value === 'medium') {
+                        obj.set('shadow', { color: 'rgba(0,0,0,0.4)', blur: 8, offsetX: 4, offsetY: 4 });
+                    } else if (this.value === 'large') {
+                        obj.set('shadow', { color: 'rgba(0,0,0,0.5)', blur: 16, offsetX: 8, offsetY: 8 });
+                    } else {
+                        obj.set('shadow', null);
+                    }
+                    canvas.requestRenderAll();
+                };
+
+                // Glow (stub)
+                document.getElementById('glowEffect').onchange = function() {
+                    alert('Glow effect: ' + this.value);
+                };
+
+                // Border
+                document.getElementById('borderEffect').onchange = function() {
+                    if (this.value === 'black') {
+                        obj.set('stroke', '#000');
+                        obj.set('strokeWidth', 4);
+                    } else if (this.value === 'white') {
+                        obj.set('stroke', '#fff');
+                        obj.set('strokeWidth', 4);
+                    } else if (this.value === 'blue') {
+                        obj.set('stroke', '#3b82f6');
+                        obj.set('strokeWidth', 4);
+                    } else {
+                        obj.set('strokeWidth', 0);
+                    }
+                    canvas.requestRenderAll();
+                };
+
+                // Roundness
+                document.getElementById('imgRoundness').onchange = function() {
+                    if (this.checked) {
+                        obj.set('rx', 30);
+                        obj.set('ry', 30);
+                    } else {
+                        obj.set('rx', 0);
+                        obj.set('ry', 0);
+                    }
+                    canvas.requestRenderAll();
+                };
+
+                // Black & White
+                document.getElementById('imgBW').onchange = function() {
+                    if (this.checked) {
+                        obj.filters.push(new fabric.Image.filters.Grayscale());
+                    } else {
+                        obj.filters = obj.filters.filter(f => !(f instanceof fabric.Image.filters.Grayscale));
+                    }
+                    obj.applyFilters();
+                    canvas.requestRenderAll();
+                };
+
+                // Sepia
+                document.getElementById('imgSepia').onchange = function() {
+                    if (this.checked) {
+                        obj.filters.push(new fabric.Image.filters.Sepia());
+                    } else {
+                        obj.filters = obj.filters.filter(f => !(f instanceof fabric.Image.filters.Sepia));
+                    }
+                    obj.applyFilters();
+                    canvas.requestRenderAll();
+                };
+
+                // Invert
+                document.getElementById('imgInvert').onchange = function() {
+                    if (this.checked) {
+                        obj.filters.push(new fabric.Image.filters.Invert());
+                    } else {
+                        obj.filters = obj.filters.filter(f => !(f instanceof fabric.Image.filters.Invert));
+                    }
+                    obj.applyFilters();
+                    canvas.requestRenderAll();
+                };
+
+                // Remove color (stub)
+                document.getElementById('imgRemoveColor').onchange = function() {
+                    alert('Remove color: This would remove a selected color from the image.');
+                };
+
+                // Adjustments
+                ['Brightness','Contrast','Vibrance','Saturation'].forEach(adjustment => {
+                    const range = document.getElementById(`img${adjustment}Range`);
+                    const input = document.getElementById(`img${adjustment}`);
+                    function updateFilter() {
+                        let value = parseInt(range.value);
+                        input.value = value;
+                        let filterType;
+                        switch(adjustment) {
+                            case 'Brightness': filterType = fabric.Image.filters.Brightness; break;
+                            case 'Contrast': filterType = fabric.Image.filters.Contrast; break;
+                            case 'Vibrance': filterType = fabric.Image.filters.Vibrance; break;
+                            case 'Saturation': filterType = fabric.Image.filters.Saturation; break;
+                        }
+                        // Remove existing filter of this type
+                        obj.filters = obj.filters.filter(f => !(f instanceof filterType));
+                        // Add new filter if not zero
+                        if (value !== 0) {
+                            let filter;
+                            if (adjustment === 'Brightness') filter = new filterType({ brightness: value / 100 });
+                            if (adjustment === 'Contrast') filter = new filterType({ contrast: value / 100 });
+                            if (adjustment === 'Vibrance') filter = new filterType({ vibrance: value / 100 });
+                            if (adjustment === 'Saturation') filter = new filterType({ saturation: value / 100 });
+                            obj.filters.push(filter);
+                        }
+                        obj.applyFilters();
+                        canvas.requestRenderAll();
+                    }
+                    range.oninput = updateFilter;
+                    input.oninput = function() {
+                        range.value = input.value;
+                        updateFilter();
+                    };
+                });
+
+                // Tint (stub)
+                document.getElementById('imgTint').onchange = function() {
+                    alert('Tint: This would apply a tint filter.');
+                };
+                // Multiply (stub)
+                document.getElementById('imgMultiply').onchange = function() {
+                    alert('Multiply: This would apply a multiply blend filter.');
+                };
+                // Gamma (stub)
+                document.getElementById('imgGamma').onchange = function() {
+                    alert('Gamma: This would apply a gamma correction filter.');
+                };
+
+                // Opacity
+                document.getElementById('imgOpacity').oninput = function() {
                     obj.set('opacity', parseFloat(this.value));
                     canvas.requestRenderAll();
                 };
+
+                // Animation buttons (stub)
+                document.getElementById('animateEntrance').onclick = function() {
+                    alert('Entrance animation triggered (implement your animation logic here)');
+                };
+                document.getElementById('animateExit').onclick = function() {
+                    alert('Exit animation triggered (implement your animation logic here)');
+                };
+
                 return;
             }
         }
@@ -535,6 +1253,22 @@
                 canvas.requestRenderAll();
                 updateStylePanel();
             }
+        });
+
+        // Dropdown toggle logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('fileMenuBtn');
+            const dropdown = document.getElementById('fileMenuDropdown');
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdown.classList.toggle('hidden');
+            });
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
         });
     </script>
 </body>
