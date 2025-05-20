@@ -502,9 +502,24 @@
 
         // Save Canvas
         function savePoster() {
-            // Save the current canvas as JSON in localStorage
+            // Save the current canvas as JSON in localStorage for reload
             localStorage.setItem('savedPoster', JSON.stringify(canvas.toJSON()));
-            alert('Poster saved! You can reload the page and your design will be restored.');
+
+            // Save to "My Designs" list
+            let myDesigns = JSON.parse(localStorage.getItem('myDesigns') || '[]');
+            // Save a thumbnail as PNG data URL
+            const thumb = canvas.toDataURL({ format: 'png', width: 200, height: 200 });
+            // Save with timestamp for uniqueness
+            const design = {
+                id: Date.now(),
+                name: 'My Poster ' + new Date().toLocaleString(),
+                json: canvas.toJSON(),
+                thumb: thumb
+            };
+            myDesigns.push(design);
+            localStorage.setItem('myDesigns', JSON.stringify(myDesigns));
+
+            alert('Poster saved! You can reload the page and your design will be restored. It will also appear under "My Designs".');
         }
 
         // Helper: Update the style panel based on selection

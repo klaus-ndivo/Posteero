@@ -63,20 +63,48 @@
 
     <!-- My Designs Section -->
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold mb-6">My Designs</h1>
-        {% if designs %}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {% for design in designs %}
-                    <div class="bg-white rounded-lg shadow p-4">
-                        <img src="{{ design.image.url }}" alt="{{ design.title }}" class="w-full h-48 object-cover rounded mb-2">
-                        <h2 class="text-lg font-semibold">{{ design.title }}</h2>
-                        <p class="text-gray-500 text-sm">Created: {{ design.created_at|date:"M d, Y" }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>You have no saved designs yet.</p>
-        {% endif %}
+        <h2 class="text-2xl font-bold mb-4">My Designs</h2>
+        <div id="myDesignsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Designs will be rendered here -->
+        </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const grid = document.getElementById('myDesignsGrid');
+        let myDesigns = JSON.parse(localStorage.getItem('myDesigns') || '[]');
+        if (!myDesigns.length) {
+            grid.innerHTML = `<div class="col-span-4 text-center text-gray-400 py-8">No designs yet.</div>`;
+            return;
+        }
+        grid.innerHTML = myDesigns.map(design => `
+            <div class="border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white flex flex-col items-center p-2 relative group">
+                <img src="${design.thumb}" class="object-contain w-full h-32 bg-gray-50 mb-2" />
+                <div class="text-sm font-semibold mb-1">${design.name}</div>
+                <button onclick="deleteDesign(${design.id})" class="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-0.5 text-xs opacity-0 group-hover:opacity-100 transition">Delete</button>
+                <button onclick="loadDesign(${design.id})" class="mt-1 text-blue-600 hover:underline text-xs">Open</button>
+            </div>
+        `).join('');
+    });
+
+    // Delete a design
+    function deleteDesign(id) {
+        let myDesigns = JSON.parse(localStorage.getItem('myDesigns') || '[]');
+        myDesigns = myDesigns.filter(d => d.id !== id);
+        localStorage.setItem('myDesigns', JSON.stringify(myDesigns));
+        location.reload();
+    }
+
+    // Open a design (redirect to editor with design loaded)
+    function loadDesign(id) {
+        let myDesigns = JSON.parse(localStorage.getItem('myDesigns') || '[]');
+        const design = myDesigns.find(d => d.id === id);
+        if (design) {
+            // Save this design as the current poster and go to editor
+            localStorage.setItem('savedPoster', JSON.stringify(design.json));
+            window.location.href = '/editor'; // Adjust path if needed
+        }
+    }
+    </script>
 </body>
 </html>
